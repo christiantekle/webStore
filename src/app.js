@@ -26,7 +26,7 @@ const users = [
     }
 ];
 
-const product = [
+const products = [
     {
         productId: 101,
         productName: 'phone',
