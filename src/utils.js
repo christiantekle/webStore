@@ -12,8 +12,9 @@ const admins = [
 const isAdmin = (userId) => {
     const adminUsers = admins.map(admin => admin.id );
     if(adminUsers.includes(userId)) {
-        return 'is Admim';
+        return true;
     }
+    return false;
 }
 
 isAdmin(302);
