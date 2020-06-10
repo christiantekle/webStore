@@ -8,7 +8,7 @@ const users = [
             productId: 101,
             status: 'new'
         }],
-        favorites: []
+        favorites: [102, 103]
     },
     {
         id: 2,
@@ -16,7 +16,7 @@ const users = [
         orders: [{
             orderId: 12,
             productId: 102,
-            status: 'new'
+            status: 'pending'
         }],
         favorites: [102]
     },
@@ -66,10 +66,6 @@ const pendingOrders = [
 
 ];
 
-const favorites = [{
-    userId: 1,
-    productId: [103]
-}];
 
 const viewProductById = (prodId) => {
     return products.filter((product) => product.productId === prodId);
@@ -78,8 +74,8 @@ const viewProductById = (prodId) => {
 const viewProductByName = (prodName) => {
     return products.filter((product) => product.productName === prodName);
 }
-console.log(viewProductById(103));
-console.log(viewProductByName('TV'));
+viewProductById(103);
+viewProductByName('TV');
 
 
 const orderProd = (prodId) => {
@@ -92,49 +88,54 @@ const orderProd = (prodId) => {
         }
         else { return 'Out of stock' }
     }
-    return 'product not found'; 
+    return 'product not found';
 }
 orderProd(104);
-console.log(products);
+console.log(pendingOrders);
 
-
-//Favorites 
+/*------ Favorites -----*/
 
 const addFavorites = (prodName, userId) => {
     const favProduct = products.filter((product) => { return product.productName === prodName });
     console.log(favProduct[0].productId);
-    //push favProduct[0].productId to user's fav list where usersId === userID
+    const user = users.find(user => user.id === userId);
     return users.filter((user) => {
         user.id === userId;
-        return favorites.productId = favProduct[0].productId;
+        return (user.favorites).push(favProduct[0].productId);
 
     });
 }
+addFavorites('laptop', 2);
+console.log(users);
 
-addFavorites('laptop', 1);
-console.log(favorites);
+const removeFavorites = (favId) => {
+    return users.filter((user) => { return user.favorites !== favId });
 
-const removeFavorites = (prodId) => {
-    // return favorites.filter((product) => { return product.favorite !== prodId });
-    
-    for (let i in favorites.productId) { 
-        if (favorites.productId[i] == prodId) {
-            return favorites.productId.splice(i);
-        }
-    }
 }
+removeFavorites(101);
 
-const removedFav = removeFavorites(103);
-console.log(removedFav);
+const getFavorite = (userId) => {
+    const user = users.find((user => user.id === userId));
+    const userFavs = user.favorites;
+    const favProducts = userFavs.map(favId => {
+        const product = products.filter(prod => prod.productId === favId);
+        return product;
+    });
 
-const getFavorite = (myUserId) => {
-    return favorites.filter(favorite => { return favorite.userId === myUserId });
+    console.log(favProducts);
 };
+getFavorite(1);
 
-console.log(getFavorite(1));
+/*------ Favorites -----*/
 
-
-const getOrders = () => {
-
+const getOrders = (userId) => {
+    const user = users.find(user => user.id === userId);
+    return user && user.orders;
 }
+getOrders(2);
 
+const editName = (userId, newName) => {
+    const user = users.find(user => user.id === userId);
+    return user && (user.name = newName);
+}
+editName(2, 'James');
