@@ -76,11 +76,11 @@ const pendingOrders = [
 
 
 const viewProductById = (prodId) => {
-    return products.filter((product) => product.productId === prodId);
+    return products.find((product) => product.productId === prodId);
 }
 
 const viewProductByName = (prodName) => {
-    return products.filter((product) => product.productName === prodName);
+    return products.find((product) => product.productName === prodName);
 }
 viewProductById(103);
 viewProductByName('TV');
@@ -105,17 +105,13 @@ console.log(pendingOrders);
 
 const addFavorites = (prodName, userId) => {
     const favProduct = products.filter((product) => { return product.productName === prodName });
-    console.log(favProduct[0].productId);
     const user = users.find(user => user.id === userId);
-    return users.filter((user) => {
-        user.id === userId;
-        return (user.favorites).push(favProduct[0].productId);
+    return user.favorites.push(favProduct[0].productId);
 
-    });
 }
 addFavorites('laptop', 2);
-console.log(users);
-
+console.log(users[1]);
+console.log('updates above');
 const removeFavorites = (favId) => {
     return users.filter((user) => { return user.favorites !== favId });
 
