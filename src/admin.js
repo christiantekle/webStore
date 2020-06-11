@@ -7,7 +7,14 @@ const users = [
             orderId: 11,
             productId: 101,
             status: 'new'
-        }],
+        },
+        {
+            orderId: 15,
+            productId: 102,
+            status: 'new'
+        }
+
+        ],
         favorites: []
     },
     {
@@ -59,21 +66,32 @@ const products = [
 
 
 const getOrders = (userId) => {
-    return users.filter((user) => {
-        return user.id === userId;
-    })
+    const user = users.find(user => { return user.id === userId });
+    return user.orders;
 };
-console.log(getOrders(2));
+console.log(getOrders(1));
 
 
-const approveOrder = (userId) => {
-    return users.filter((user) => {
-        user.id === userId;
+const approveOrder = (userId, orderId) => {
+    const user = users.find(user => { return user.id === userId });
+    const userorders = user.orders;
+    const orderToBeApproved = userorders.find(order => {
+        return order.orderId === orderId;
 
     });
+    return orderToBeApproved.status = 'approved';
 };
-approveOrder(2);
-console.log(users);
+approveOrder(1, 11);
+
+const rejectOrder = (userId, orderId) => {
+    const user = users.find(user => { return user.id === userId });
+    const userorders = user.orders;
+    const orderToBeRejected = userorders.find(order => {
+        return order.orderId === orderId;
+    });
+    return orderToBeRejected.status = 'rejected';
+};
+rejectOrder(1, 11);
 
 
 const createNewProduct = (prodId, prodName, stockAmt) => {
@@ -81,28 +99,36 @@ const createNewProduct = (prodId, prodName, stockAmt) => {
 }
 
 createNewProduct(105, 'earpods', 15000);
-console.log(products);
 
 
 const deleteProduct = (productId) => {
+    
     return products.filter((product) => {
         return product.productId !== productId;
     })
 }
-const updatedProd = deleteProduct(103);
-console.log(updatedProd);
+deleteProduct(103);
 
 const allUsers = () => {
     return users;
 }
-console.log(allUsers());
+allUsers();
 
 const getUserById = (userId) => {
     return users.filter((user) => { return user.id === userId })
 }
 console.log(getUserById(3));
+const getOrderById = (userId, orderId) => {
+    const user = users.find(user => { return user.id === userId });
+    const userorders = user.orders;
+    const orderById = userorders.find(order => {
+        return order.orderId === orderId;
 
-//get oder by id isn't working
+    });
+    return orderById;
+}
+getOrderById(1, 15);
+
 
 const increaseStock = (productId, byNum) => {
     const productsIds = products.map((product) => { return product.productId });

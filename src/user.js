@@ -7,8 +7,15 @@ const users = [
             orderId: 11,
             productId: 101,
             status: 'new'
-        }],
-        favorites: [102, 103]
+        },
+        {
+            orderId: 15,
+            productId: 102,
+            status: 'new'
+        }
+
+        ],
+        favorites: []
     },
     {
         id: 2,
@@ -16,7 +23,7 @@ const users = [
         orders: [{
             orderId: 12,
             productId: 102,
-            status: 'pending'
+            status: 'new'
         }],
         favorites: [102]
     },
@@ -31,6 +38,7 @@ const users = [
         favorites: [101]
     }
 ];
+
 
 const products = [
     {
